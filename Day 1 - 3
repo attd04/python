@@ -1,0 +1,66 @@
+// DAY 1- Band Name Generator
+
+print("This is the Band Name Generator")
+city_name = input("What city did you grow up in?\n")  
+pet_name = input("What's your pets name?\n")
+print(city_name + " " + pet_name)
+
+// ------------------------------------------------
+// DAY 2- Loop d'Loop ticket stand
+
+print("This is the loop-d-loop\n")
+
+height = int(input("How tall are you in cm? "))
+
+bill = 0
+
+if height >= 120:
+  print("Come on in\n")
+  age = int(input("How old are you? "))
+  if age >= 45 and age <= 55:
+    bill = 0
+    print("Your ticket is free")
+  elif age < 12 :
+    bill = 5
+    print("$5 please")
+  elif age <= 18:
+    bill = 7
+    print("$7 please")
+  else:
+    bill = 12
+    print("$12 please\n")
+
+  photo = input("Do you want a photo? yes or no? ")
+  if photo == "yes":
+    bill = bill + 3
+  print(f"Your total bill is ${bill}.")
+    
+else:
+  print("Sorry, you're not tall enough.")
+
+// ------------------------------------------------
+// DAY 3- Tip Calculator
+
+print("Welcome to the tip calculator\n")
+
+#values
+bbill = input("What was the total bill? $")
+btip = input("How much do you want to tip? 10%, 12% or 15%? ")
+bppl = input("How many people are splitting the bill? ")
+
+# switch types
+bill = float(bbill)
+tip = float(btip)
+ppl = float(bppl)
+
+# calculations
+# bill
+tot_tip = ((tip / 100) * bill)
+tot_bill = (tot_tip + bill)
+
+# divide by people
+end = round(tot_bill / ppl, 2)
+
+print(f"Each person should pay ${end}")
+
+
