@@ -1,0 +1,121 @@
+
+
+import random
+
+logo = ''' 
+ _                                             
+| |                                            
+| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
+| '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+| | | | (_| | | | | (_| | | | | | | (_| | | | |
+|_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                    __/ |                      
+                   |___/    '''
+
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
+print(f"\n{logo}")
+
+word_list = ["aardvark", "baboon", "camel", "dinosaur", "whale", "autumnisthebest", "pokemon", "flamingo", "cougar", "dolphin"]
+chosen_word = random.choice(word_list)
+
+lives = int(6)
+display = []
+
+# lengths of things
+word_length = len(chosen_word)
+display_len = len(display)
+
+
+# make blanks
+for char in chosen_word:
+  display += "_"
+  while display_len == word_length:
+    break
+
+
+guessed = []
+blank = '_'
+# putting letters in blanks
+while blank in display:
+  guess = input("Guess a letter: ").lower()
+  
+  if guess not in guessed:
+    guessed.append(guess)
+  else:
+    print(f"\n{guess} was already guessed.")
+  
+  for position in range(word_length):
+    letter = chosen_word[position]
+    
+    if letter == guess:
+      display[position] = letter
+
+  print(f"\n{display}\n")
+
+  
+  if guess not in chosen_word:
+    lives -= 1
+    print(f"\nNo match. Lives left: {lives}")
+    print(stages[lives])
+    while lives == 0:
+      print("Game over.")
+      print(f"The word was: {chosen_word}\n")
+      exit()
+
+print("You win!")      
