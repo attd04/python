@@ -36,13 +36,14 @@ for song in all_songs:
 
 # song links
 song_uris = []
-for song in songs_final:
-    result = sp.search(q=f"track:{song}", type="track", market="LT")
-    if result["tracks"]["items"]:
-        uri = result["tracks"]["items"][0]["uri"]
-        song_uris.append(uri)
-    else:
-        print(f"{song} wasn't found :(")
+if song_uris.len() <= 100:
+    for song in songs_final:
+        result = sp.search(q=f"track:{song}", type="track", market="LT")
+        if result["tracks"]["items"]:
+            uri = result["tracks"]["items"][0]["uri"]
+            song_uris.append(uri)
+        else:
+            print(f"{song} wasn't found :(")
 
 # adding to playlist
 playlist = sp.user_playlist_create("22bichulre5jpecc2yf6ghfui", (f"{genre}"), public=False,
