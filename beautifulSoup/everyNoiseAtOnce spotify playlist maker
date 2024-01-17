@@ -36,7 +36,7 @@ for song in all_songs:
 
 # song links
 song_uris = []
-if song_uris.len() <= 100:
+while song_uris.len() <= 100:
     for song in songs_final:
         result = sp.search(q=f"track:{song}", type="track", market="LT")
         if result["tracks"]["items"]:
