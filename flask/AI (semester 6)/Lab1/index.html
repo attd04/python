@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input {
+            width: 60%;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .keywords, .results {
+            margin-top: 20px;
+        }
+        .article {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Article Search</h1>
+    <input type="text" id="searchQuery" placeholder="Enter keywords...">
+    <button onclick="searchArticles()">Search</button>
+
+    <h2>Keyword Groups</h2>
+    <div class="keywords" id="keywordGroups"></div>
+
+    <script>
+        function loadKeywordGroups() {
+            fetch('/keywords')
+                .then(response => response.json())
+                .then(data => {
+                    let keywordsHtml = "";
+                    for (let keyword in data) {
+                        keywordsHtml += `<h3>${keyword}</h3><ul>`;
+                        data[keyword].forEach(article => {
+                            keywordsHtml += `<li><strong>${article.title}</strong> (${article.category})<br>${article.snippet}</li>`;
+                        });
+                        keywordsHtml += "</ul>";
+                    }
+
+                    document.getElementById('keywordGroups').innerHTML = keywordsHtml;
+                });
+        }
+
+
+        function searchArticles() {
+            let query = document.getElementById("searchQuery").value;  // Fix: Use correct ID
+            if (query.trim() !== "") {  // Prevent empty searches
+                window.location.href = `/search?query=${encodeURIComponent(query)}`;
+            } else {
+                alert("Please enter a search term!");
+            }
+        }
+
+
+        // Load keyword groups on page load
+        window.onload = loadKeywordGroups;
+    </script>
+</body>
+</html>
