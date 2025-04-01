@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection Results</title>
+    <style>
+        /* CSS styles for result page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            z-index: 1; /* Ensure the header is above other elements */
+        }
+
+        #image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .bounding-box {
+            position: absolute;
+            border: 2px solid #FF0000;
+            font-size: 16px;
+            color: #333;
+            pointer-events: none;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        {% for result in results %}
+            {% if result.label == 'cat' %}
+                .{{ result.label }} {
+                    border-color: #0000FF; /* Blue */
+                    color: #0000FF; /* Blue */
+                }
+            {% elif result.label == 'dog' %}
+                .{{ result.label }} {
+                    border-color: #FF0000; /* Red */
+                    color: #FF0000; /* Red */
+                }
+            {% elif result.label == 'monkey' %}
+                .{{ result.label }} {
+                    border-color: #008000; /* Green */
+                    color: #008000; /* Green */
+                }
+            {% else %}
+                .{{ result.label }} {
+                    border-color: #FFA500; /* Orange */
+                    color: #FFA500; /* Orange */
+                }
+            {% endif %}
+        {% endfor %}
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #333;">Object Detection Results</h1>
+    <div id="image-container">
+        <img src="{{ image_url }}" alt="Object Detection Image" id="detection-image">
+        {% for result in results %}
+        <div class="bounding-box {{ result.label }}" style="left: {{ result.x0 }}px; top: {{ result.y0 }}px; width: {{ result.x1 - result.x0 }}px; height: {{ result.y1 - result.y0 }}px;">
+            {{ result.label }} ({{ '%.1f' | format(result.score) }})
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
